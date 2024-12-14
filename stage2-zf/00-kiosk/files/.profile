@@ -27,7 +27,7 @@ alias s='sudo'
 alias sus='sudo -s'
 
 # first-run script
-[[ -f ./firstrun.sh ]] && ./firstrun.sh
+# [[ -f ./firstrun.sh ]] && ./firstrun.sh
 
 # silent startx on video console
 
