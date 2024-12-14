@@ -1,0 +1,14 @@
+IMG_NAME="Zeroframe"
+LOCALE_DEFAULT="en_US.UTF-8"
+TARGET_HOSTNAME="zf"
+KEYBOARD_KEYMAP="us"
+TIMEZONE_DEFAULT="America/Chicago"
+FIRST_USER_NAME="zf"
+FIRST_USER_PASS="zf"                 # your password
+ENABLE_SSH=1
+# PUBKEY_SSH_FIRST_USER="ssh-rsa ..."   # your public key for SSH
+# WPA_ESSID=
+# WPA_PASSWORD=
+WPA_COUNTRY="US"
+STAGE_LIST="stage0 stage1 stage2 stage2-zf"
+KIOSK_URL="https://0fra.me/"     # Kiosk's predefined URL
