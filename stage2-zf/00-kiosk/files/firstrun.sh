@@ -2,8 +2,8 @@
 
 echo ">> FIRST RUN"
 
-echo
-echo ">> Enabling Read-Only Overlay File System"
+# echo
+# echo ">> Enabling Read-Only Overlay File System"
 # sudo raspi-config nonint enable_overlayfs
 # sudo raspi-config nonint enable_bootro
 sudo raspi-config nonint do_change_locale en_US.UTF-8

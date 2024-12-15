@@ -27,11 +27,13 @@ alias s='sudo'
 alias sus='sudo -s'
 
 # first-run script
-[[ -f ./firstrun.sh ]] && ./firstrun.sh
+# [[ -f ./firstrun.sh ]] && ./firstrun.sh
 
 # silent startx on video console
 
-if [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-  startx > /dev/null 2>&1
-  exit
-fi
+setterm -powersave off -blank 0
+
+# if [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+#   startx > /dev/null 2>&1
+#   exit
+# fi
