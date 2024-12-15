@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # read URL from easily accessible location
-URL=$(head -n 1 /boot/kiosk.url)
+URL=$(head -n 1 /boot/firmware/kiosk.url)
 
 # never blank the screen
 # xset s off -dpms

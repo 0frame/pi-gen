@@ -2,19 +2,19 @@
 
 . "${BASE_DIR}/config"
 on_chroot << EOF
-echo -n "${FIRST_USER_NAME:='pi'}:" > /boot/userconf.txt
-openssl passwd -5 "${FIRST_USER_PASS:='raspberry'}" >> /boot/userconf.txt
+echo -n "${FIRST_USER_NAME:='pi'}:" > ${ROOTFS_DIR}/boot/firmware/userconf.txt
+openssl passwd -5 "${FIRST_USER_PASS:='raspberry'}" >> ${ROOTFS_DIR}/boot/firmware/userconf.txt
 touch /boot/ssh
 
-echo "${KIOSK_URL}" > /boot/kiosk.url
-chown 1000:1000 /boot/kiosk.url
+echo "${KIOSK_URL}" > ${ROOTFS_DIR}/boot/firmware/kiosk.url
+chown 1000:1000 ${ROOTFS_DIR}/boot/firmware/kiosk.url
 
 echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 export DEBIAN_FRONTEND=noninteractive
 EOF
 
-install -m 644 files/config.txt "${ROOTFS_DIR}/boot/"
-install -m 644 files/cmdline.txt "${ROOTFS_DIR}/boot/"
+install -m 644 files/cmdline.txt "${ROOTFS_DIR}/boot/firmware/"
+install -m 644 files/config.txt "${ROOTFS_DIR}/boot/firmware/"
 
 HOME="${ROOTFS_DIR}/home/${FIRST_USER_NAME}"
 install -m 755 -o 1000 -g 1000 files/kiosk.sh "${HOME}/"

@@ -27,13 +27,33 @@ alias s='sudo'
 alias sus='sudo -s'
 
 # first-run script
-# [[ -f ./firstrun.sh ]] && ./firstrun.sh
+[[ -f ./firstrun.sh ]] && ./firstrun.sh
 
 # silent startx on video console
 
 setterm -powersave off -blank 0
 
-# if [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-#   startx > /dev/null 2>&1
-#   exit
-# fi
+# If n has been pressed, don't start zf
+read -t 1 -n 1 key
+    if [[ $key = n ]]
+then
+    echo "Skip autoboot."
+else
+    if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+        echo "logged in via SSH"
+    else
+        # logged in locally (not via SSH)
+
+        # hide the prompt:
+        PS1=""
+        # set the terminal text color to black
+        setterm --foreground black --background black --cursor off --clear all
+        # start up zf as a background process
+        if [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+            startx > /dev/null 2>&1
+            exit
+        fi
+    fi
+fi
+
+
