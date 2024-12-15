@@ -2,9 +2,10 @@
 
 . "${BASE_DIR}/config"
 on_chroot << EOF
+touch ${ROOTFS_DIR}/boot/firmware/userconf.txt
 echo -n "${FIRST_USER_NAME:='pi'}:" > ${ROOTFS_DIR}/boot/firmware/userconf.txt
 openssl passwd -5 "${FIRST_USER_PASS:='raspberry'}" >> ${ROOTFS_DIR}/boot/firmware/userconf.txt
-touch /boot/ssh
+touch /boot/firmware/ssh
 
 echo "${KIOSK_URL}" > ${ROOTFS_DIR}/boot/firmware/kiosk.url
 chown 1000:1000 ${ROOTFS_DIR}/boot/firmware/kiosk.url
