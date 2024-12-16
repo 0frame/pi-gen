@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo ">> FIRST RUN"
+echo "[] Setting up Zeroframe Player"
 
 # echo
 # echo ">> Enabling Read-Only Overlay File System"
@@ -11,12 +11,13 @@ sudo raspi-config nonint do_boot_splash 1
 sudo raspi-config nonint do_boot_behaviour B2
 sudo raspi-config nonint do_blanking 1
 sudo raspi-config nonint memory_split 512
-sudo raspi-config nonint do_serial 1
+sudo raspi-config nonint do_serial_hw 1
+sudo raspi-config nonint do_serial_cons 1
 
 echo
-echo ">> Removing First Run Script"
+# echo ">> Removing First Run Script"
 rm ./firstrun.sh
 
 echo
-echo ">> Rebooting"
+echo "[] Rebooting"
 sudo reboot
