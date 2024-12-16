@@ -13,6 +13,15 @@ echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 export DEBIAN_FRONTEND=noninteractive
 EOF
 
+mkdir -p "${ROOTFS_DIR}/usr/share/plymouth/themes/custom"
+install -m 644 files/splash.png "${ROOTFS_DIR}/usr/share/plymouth/themes/custom/splash.png"
+install -m 644 files/custom.plymouth "${ROOTFS_DIR}/usr/share/plymouth/themes/custom/custom.plymouth"
+install -m 644 files/script "${ROOTFS_DIR}/usr/share/plymouth/themes/custom/script"
+
+on_chroot << EOF
+plymouth-set-default-theme -R custom
+EOF
+
 install -m 644 files/cmdline.txt "${ROOTFS_DIR}/boot/firmware/"
 install -m 644 files/config.txt "${ROOTFS_DIR}/boot/firmware/"
 

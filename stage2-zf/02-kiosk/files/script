@@ -1,0 +1,5 @@
+[[
+Plymouth.beginGraphic()
+Plymouth.setImage("/usr/share/plymouth/themes/custom/splash.png")
+Plymouth.finishGraphic()
+]]
