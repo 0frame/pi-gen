@@ -40,4 +40,5 @@ exec /usr/bin/chromium \
   --disable-gpu-memory-buffer-video-frames \
   --enable-features=VaapiVideoDecoder \
   --use-gl=egli \
+  --force-dark-mode \
   "${URL:='https://0fra.me'}"

@@ -1,0 +1,12 @@
+[Unit]
+Description=Zeroframe Player
+
+[Service]
+Environment=DISPLAY=:0
+Type=simple
+Restart=no
+ExecStart=/usr/bin/startx
+User=zf
+
+[Install]
+WantedBy=multi-user.target

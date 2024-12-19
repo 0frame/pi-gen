@@ -13,13 +13,15 @@ echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 export DEBIAN_FRONTEND=noninteractive
 EOF
 
-mkdir -p "${ROOTFS_DIR}/usr/share/plymouth/themes/custom"
-install -m 644 files/splash.png "${ROOTFS_DIR}/usr/share/plymouth/themes/custom/splash.png"
-install -m 644 files/custom.plymouth "${ROOTFS_DIR}/usr/share/plymouth/themes/custom/custom.plymouth"
-install -m 644 files/script "${ROOTFS_DIR}/usr/share/plymouth/themes/custom/script"
-
+install -m 644 files/splash.png "${ROOTFS_DIR}/boot/splash.png"
+# install zf service
+install -m 644 files/zf.service "${ROOTFS_DIR}/etc/systemd/system/zf.service"
+# install splash service
+install -m 644 files/splash.service "${ROOTFS_DIR}/etc/systemd/system/splash.service"
 on_chroot << EOF
-plymouth-set-default-theme -R custom
+    systemctl daemon-reload
+    systemctl enable zf
+    systemctl enable splash
 EOF
 
 install -m 644 files/cmdline.txt "${ROOTFS_DIR}/boot/firmware/"
@@ -33,5 +35,4 @@ install -m 644 -o 1000 -g 1000 files/.xinitrc "${HOME}/"
 install -m 644 -o 1000 -g 1000 files/.hushlogin "${HOME}/"
 install -m 755 -o 1000 -g 1000 files/splash.png "${HOME}/"
 install -m 755 -o 1000 -g 1000 -d "${HOME}/bin/"
-#install -m 755 -o 1000 -g 1000 files/bin/browser "${HOME}/bin/"
 install -m 755 -o 1000 -g 1000 files/bin/cec2kbd "${HOME}/bin/"
