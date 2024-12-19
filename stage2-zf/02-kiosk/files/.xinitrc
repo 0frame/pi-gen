@@ -1,1 +1,1 @@
-./kiosk.sh
+/home/zf/kiosk.sh

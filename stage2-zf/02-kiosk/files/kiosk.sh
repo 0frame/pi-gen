@@ -12,7 +12,7 @@ URL=$(head -n 1 /boot/firmware/kiosk.url)
 # xrandr --output HDMI-1
 
 # show a splash before browser kicks in
-feh --bg-center splash.png
+feh --bg-center /home/zf/splash.png
 
 # # start the cec-client & browser
 # (cec-client | cec2kbd) & browser --fullscreen "${URL:='https://0fra.me'}"

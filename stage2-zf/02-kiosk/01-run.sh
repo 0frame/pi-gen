@@ -22,6 +22,7 @@ on_chroot << EOF
     systemctl daemon-reload
     systemctl enable zf
     systemctl enable splashscreen
+    SUDO_USER="${FIRST_USER_NAME}" loginctl enable-linger zf
 EOF
 
 install -m 644 files/cmdline.txt "${ROOTFS_DIR}/boot/firmware/"
@@ -31,9 +32,7 @@ install -m 644 files/config.txt "${ROOTFS_DIR}/boot/firmware/"
 
 on_chroot << EOF
     SUDO_USER="${FIRST_USER_NAME}" raspi-config nonint do_change_locale en_US.UTF-8
-    SUDO_USER="${FIRST_USER_NAME}" raspi-config nonint do_boot_splash 1
     SUDO_USER="${FIRST_USER_NAME}" raspi-config nonint do_blanking 1
-    SUDO_USER="${FIRST_USER_NAME}" raspi-config nonint memory_split 512
     SUDO_USER="${FIRST_USER_NAME}" raspi-config nonint do_serial_hw 1
     SUDO_USER="${FIRST_USER_NAME}" raspi-config nonint do_serial_cons 1
 EOF
@@ -44,7 +43,8 @@ HOME="${ROOTFS_DIR}/home/${FIRST_USER_NAME}"
 install -m 755 -o 1000 -g 1000 files/kiosk.sh "${HOME}/"
 # install -m 755 -o 1000 -g 1000 files/firstrun.sh "${HOME}/"
 install -m 644 -o 1000 -g 1000 files/.profile "${HOME}/"
-install -m 644 -o 1000 -g 1000 files/.xinitrc "${HOME}/"
+install -m 755 -o 1000 -g 1000 files/.xinitrc "${HOME}/"
+install -m 644 -o 1000 -g 1000 files/.Xauthority "${HOME}/"
 install -m 644 -o 1000 -g 1000 files/.hushlogin "${HOME}/"
 install -m 755 -o 1000 -g 1000 files/splash.png "${HOME}/"
 install -m 755 -o 1000 -g 1000 -d "${HOME}/bin/"
