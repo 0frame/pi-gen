@@ -30,12 +30,12 @@ install -m 644 files/config.txt "${ROOTFS_DIR}/boot/firmware/"
 # Set some raspi-config stuff
 
 on_chroot << EOF
-    sudo raspi-config nonint do_change_locale en_US.UTF-8
-    sudo raspi-config nonint do_boot_splash 1
-    sudo raspi-config nonint do_blanking 1
-    sudo raspi-config nonint memory_split 512
-    sudo raspi-config nonint do_serial_hw 1
-    sudo raspi-config nonint do_serial_cons 1
+    SUDO_USER="${FIRST_USER_NAME}" raspi-config nonint do_change_locale en_US.UTF-8
+    SUDO_USER="${FIRST_USER_NAME}" raspi-config nonint do_boot_splash 1
+    SUDO_USER="${FIRST_USER_NAME}" raspi-config nonint do_blanking 1
+    SUDO_USER="${FIRST_USER_NAME}" raspi-config nonint memory_split 512
+    SUDO_USER="${FIRST_USER_NAME}" raspi-config nonint do_serial_hw 1
+    SUDO_USER="${FIRST_USER_NAME}" raspi-config nonint do_serial_cons 1
 EOF
 # for now don't change boot behaviour to auto login since we are using a service
 # raspi-config nonint do_boot_behaviour B2
