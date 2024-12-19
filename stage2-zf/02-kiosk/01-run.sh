@@ -49,3 +49,5 @@ install -m 644 -o 1000 -g 1000 files/.hushlogin "${HOME}/"
 install -m 755 -o 1000 -g 1000 files/splash.png "${HOME}/"
 install -m 755 -o 1000 -g 1000 -d "${HOME}/bin/"
 install -m 755 -o 1000 -g 1000 files/bin/cec2kbd "${HOME}/bin/"
+
+install -m 644 files/Xwrapper.config "${ROOTFS_DIR}/etc/X11/"
