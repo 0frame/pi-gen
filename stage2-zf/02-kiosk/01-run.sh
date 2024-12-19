@@ -17,11 +17,11 @@ install -m 644 files/splash.png "${ROOTFS_DIR}/boot/splash.png"
 # install zf service
 install -m 644 files/zf.service "${ROOTFS_DIR}/etc/systemd/system/zf.service"
 # install splash service
-install -m 644 files/splash.service "${ROOTFS_DIR}/etc/systemd/system/splash.service"
+install -m 644 files/splashscreen.service "${ROOTFS_DIR}/etc/systemd/system/splashscreen.service"
 on_chroot << EOF
     systemctl daemon-reload
     systemctl enable zf
-    systemctl enable splash
+    systemctl enable splashscreen
 EOF
 
 install -m 644 files/cmdline.txt "${ROOTFS_DIR}/boot/firmware/"
