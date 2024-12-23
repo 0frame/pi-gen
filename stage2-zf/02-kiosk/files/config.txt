@@ -52,3 +52,4 @@ dtoverlay=dwc2,dr_mode=host
 disable_splash=1
 framebuffer_width=1920
 framebuffer_height=1080
+framebuffer_depth=32

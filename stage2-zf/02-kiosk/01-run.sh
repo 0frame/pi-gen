@@ -22,7 +22,8 @@ on_chroot << EOF
     systemctl daemon-reload
     systemctl enable zf
     systemctl enable splashscreen
-    SUDO_USER="${FIRST_USER_NAME}" loginctl enable-linger zf
+    mkdir -p /var/lib/systemd/linger
+    touch /var/lib/systemd/linger/${FIRST_USER_NAME}
 EOF
 
 install -m 644 files/cmdline.txt "${ROOTFS_DIR}/boot/firmware/"
@@ -44,10 +45,13 @@ install -m 755 -o 1000 -g 1000 files/kiosk.sh "${HOME}/"
 # install -m 755 -o 1000 -g 1000 files/firstrun.sh "${HOME}/"
 install -m 644 -o 1000 -g 1000 files/.profile "${HOME}/"
 install -m 755 -o 1000 -g 1000 files/.xinitrc "${HOME}/"
-install -m 644 -o 1000 -g 1000 files/.Xauthority "${HOME}/"
+# install -m 644 -o 1000 -g 1000 files/.Xauthority "${HOME}/"
 install -m 644 -o 1000 -g 1000 files/.hushlogin "${HOME}/"
 install -m 755 -o 1000 -g 1000 files/splash.png "${HOME}/"
 install -m 755 -o 1000 -g 1000 -d "${HOME}/bin/"
 install -m 755 -o 1000 -g 1000 files/bin/cec2kbd "${HOME}/bin/"
+# install -m 644 files/Xwrapper.config "${ROOTFS_DIR}/etc/X11/"
 
-install -m 644 files/Xwrapper.config "${ROOTFS_DIR}/etc/X11/"
+on_chroot << EOF
+    chown -R ${FIRST_USER_NAME}:${FIRST_USER_NAME} /home/${FIRST_USER_NAME}
+EOF
