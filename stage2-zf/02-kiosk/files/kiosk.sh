@@ -1,44 +1,58 @@
 #!/usr/bin/env bash
 
-# read URL from easily accessible location
-URL=$(head -n 1 /boot/firmware/kiosk.url)
+check_connection() {
+    if ping -q -c 1 -W 1 8.8.8.8 >/dev/null; then
+        return 0 # Connection exists
+    else
+        return 1 # No connection
+    fi
+}
 
-# never blank the screen
-# xset s off -dpms
+if check_connection; then
+    # read URL from easily accessible location
+    URL=$(head -n 1 /boot/firmware/kiosk.url)
 
-# rotate to portrait mounted TV
-# xrandr --output HDMI-1 --rotate left
+    # never blank the screen
+    # xset s off -dpms
 
-# xrandr --output HDMI-1
+    # rotate to portrait mounted TV
+    # xrandr --output HDMI-1 --rotate left
 
-# show a splash before browser kicks in
-feh --bg-center /home/zf/splash.png
+    # xrandr --output HDMI-1
 
-# # start the cec-client & browser
-# (cec-client | cec2kbd) & browser --fullscreen "${URL:='https://0fra.me'}"
+    # show a splash before browser kicks in
+    feh --bg-center /home/zf/splash.png
 
-#######
+    # # start the cec-client & browser
+    # (cec-client | cec2kbd) & browser --fullscreen "${URL:='https://0fra.me'}"
 
-xscreensaver -no-splash
+    #######
 
-xset s off
-xset -dpms
-xset s noblank
+    xscreensaver -no-splash
 
-unclutter -idle 0.1 &
-matchbox-window-manager -use_cursor no &
+    xset s off
+    xset -dpms
+    xset s noblank
 
-exec /usr/bin/chromium \
-  --noerrdialogs \
-  --kiosk \
-  --disable-infobars \
-  --disable-extensions \
-  --disable-bookmarks \
-  --disable-features=TranslateUI \
-  --disable-component-update \
-  --disable-sync \
-  --disable-gpu-memory-buffer-video-frames \
-  --enable-features=VaapiVideoDecoder \
-  --use-gl=egli \
-  --force-dark-mode \
-  "${URL:='https://0fra.me'}"
+    unclutter -idle 0.1 &
+    matchbox-window-manager -use_cursor no &
+
+    exec /usr/bin/chromium \
+        --noerrdialogs \
+        --kiosk \
+        --disable-infobars \
+        --disable-extensions \
+        --disable-bookmarks \
+        --disable-features=TranslateUI \
+        --disable-component-update \
+        --disable-sync \
+        --disable-gpu-memory-buffer-video-frames \
+        --enable-features=VaapiVideoDecoder \
+        --use-gl=egli \
+        --force-dark-mode \
+        "${URL:='https://0fra.me'}"Z
+    break
+else
+    echo "[] No network connection detected, booting into network setup..."
+    exit 1
+fi
