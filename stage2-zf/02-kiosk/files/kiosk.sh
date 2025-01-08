@@ -50,7 +50,7 @@ if check_connection; then
         --enable-features=VaapiVideoDecoder \
         --use-gl=egli \
         --force-dark-mode \
-        "${URL:='https://0fra.me'}"Z
+        "${URL:='https://0fra.me'}"
     break
 else
     echo "[] No network connection detected, booting into network setup..."
