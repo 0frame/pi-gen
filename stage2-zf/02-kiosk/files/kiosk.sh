@@ -28,7 +28,7 @@ if check_connection; then
 
     #######
 
-    xscreensaver -no-splash
+    # xscreensaver -no-splash
 
     xset s off
     xset -dpms
@@ -36,6 +36,11 @@ if check_connection; then
 
     unclutter -idle 0.1 &
     matchbox-window-manager -use_cursor no &
+
+    # these seem to cause issues with video playback - removing resolved tearing
+    #--disable-gpu-memory-buffer-video-frames \
+    #--enable-features=VaapiVideoDecoder \
+    #--use-gl=egli \
 
     exec /usr/bin/chromium \
         --noerrdialogs \
@@ -46,9 +51,6 @@ if check_connection; then
         --disable-features=TranslateUI \
         --disable-component-update \
         --disable-sync \
-        --disable-gpu-memory-buffer-video-frames \
-        --enable-features=VaapiVideoDecoder \
-        --use-gl=egli \
         --force-dark-mode \
         "${URL:='https://0fra.me'}"
     break

@@ -1,5 +1,6 @@
 [Unit]
 Description=Zeroframe Player
+After=network.target
 
 [Service]
 Environment=DISPLAY=:0
