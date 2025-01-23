@@ -10,7 +10,7 @@
         body {
             font-family: "Source Sans Pro", sans-serif;
             color: #fff;
-            background-color: #181818;
+            background-color: #000;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,9 +23,11 @@
         }
 
         .inner-container {
-            background-color: #000;
+            background-color: #1f1f1f;
+            display: block;
+            /* box-shadow: 0px 0px 10px rgba(255, 255, 255, .5); */
+            border: 1px solid #333;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 20px;
             max-width: 400px;
             text-align: center;
@@ -49,6 +51,7 @@
             border: 1px solid #cccccc;
             border-radius: 5px;
             box-sizing: border-box;
+            outline-color: rgb(60, 32, 226);
         }
 
         button {
@@ -132,6 +135,8 @@
             document.getElementById('success').style.display = 'none'
             document.getElementById('status-message').style.display = message ? 'block' : 'none';
             document.getElementById('logo').className = '';
+            // focus on the first input field
+            document.getElementById('ssid').focus();
         }
 
         function showSuccess() {
@@ -140,6 +145,12 @@
             document.getElementById('success').style.display = 'block';
             document.getElementById('status-message').style.display = 'none';
             document.getElementById('logo').className = '';
+        }
+
+        function shutdownServer() {
+            fetch('/shutdown', {
+                method: 'POST',
+            });
         }
 
         // for a maximum of 15 seconds, check if the device is connected to the internet
@@ -152,6 +163,7 @@
                 if (result.connected) {
                     clearInterval(interval);
                     showSuccess();
+                    shutdownServer();
                     setTimeout(() => {
                         window.location.href = 'https://0fra.me';
                     }, 2000);
@@ -195,6 +207,7 @@
 
                 if (result.success) {
                     showSuccess();
+                    shutdownServer();
                     // after 2 seconds, redirect to the 0fra.me
                     setTimeout(() => {
                         window.location.href = 'https://0fra.me';

@@ -16,12 +16,9 @@ EOF
 install -m 644 files/splash.png "${ROOTFS_DIR}/boot/splash.png"
 # install zf service
 install -m 644 files/zf.service "${ROOTFS_DIR}/etc/systemd/system/zf.service"
-# install splash service
-install -m 644 files/splashscreen.service "${ROOTFS_DIR}/etc/systemd/system/splashscreen.service"
 on_chroot << EOF
     systemctl daemon-reload
     systemctl enable zf
-    systemctl enable splashscreen
     mkdir -p /var/lib/systemd/linger
     touch /var/lib/systemd/linger/${FIRST_USER_NAME}
 EOF
@@ -43,7 +40,7 @@ EOF
 HOME="${ROOTFS_DIR}/home/${FIRST_USER_NAME}"
 install -m 755 -o 1000 -g 1000 files/kiosk.sh "${HOME}/"
 # install -m 755 -o 1000 -g 1000 files/firstrun.sh "${HOME}/"
-install -m 644 -o 1000 -g 1000 files/.profile "${HOME}/"
+# install -m 644 -o 1000 -g 1000 files/.profile "${HOME}/"
 install -m 755 -o 1000 -g 1000 files/.xinitrc "${HOME}/"
 # install -m 644 -o 1000 -g 1000 files/.Xauthority "${HOME}/"
 install -m 644 -o 1000 -g 1000 files/.hushlogin "${HOME}/"

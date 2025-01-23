@@ -54,6 +54,14 @@ def configure_wifi():
     except subprocess.CalledProcessError as e:
         return jsonify({"success": False, "error": f"Failed to configure WiFi: {e}"}), 500
 
+# Add route that shuts down the flask server
+@app.route('/shutdown', methods=['POST'])
+def shutdown():
+    # log the action
+    print('Server shutting down...')
+    # run subprocess to shutdown the flask server
+    subprocess.run(['pkill', 'python'])
+    return 'Server shutting down...'
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
