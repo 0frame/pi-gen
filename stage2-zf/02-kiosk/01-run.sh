@@ -54,7 +54,7 @@ install -m 755 -o 1000 -g 1000 -d "${HOME}/web/static"
 install -m 755 -o 1000 -g 1000 -d "${HOME}/web/static/res"
 install -m 755 -o 1000 -g 1000 -d "${HOME}/web/templates"
 install -m 755 -o 1000 -g 1000 files/web/app.py "${HOME}/web/"
-install -m 755 -o 1000 -g 1000 files/web/static/res/logo-white.png "${HOME}/web/static/res/"
+install -m 755 -o 1000 -g 1000 files/web/static/res/logo-white.svg "${HOME}/web/static/res/"
 install -m 755 -o 1000 -g 1000 files/web/templates/index.html "${HOME}/web/templates/"
 
 install -m 644 files/Xwrapper.config "${ROOTFS_DIR}/etc/X11/"
