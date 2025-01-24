@@ -26,7 +26,7 @@ def check_network():
 def list_ssids():
     # Use NetworkManager CLI (nmcli) to list available WiFi networks
     try:
-        result = subprocess.run(['nmcli', 'dev', 'wifi', 'list'], check=True, stdout=subprocess.PIPE)
+        result = subprocess.run(['sudo', 'nmcli', 'dev', 'wifi', 'list'], check=True, stdout=subprocess.PIPE)
         ssids = result.stdout.decode('utf-8').split('\n')[1:]
 
         return {'ssids': ssids}, 200
@@ -46,7 +46,7 @@ def configure_wifi():
     try:
         # Use NetworkManager CLI (nmcli) to configure the WiFi network
         subprocess.run([
-            'nmcli', 'dev', 'wifi', 'connect', ssid, 'password', password
+            'sudo', 'nmcli', 'dev', 'wifi', 'connect', ssid, 'password', password
         ], check=True)
 
         return jsonify({"success": True, "message": "WiFi configuration updated successfully!"})
@@ -60,7 +60,7 @@ def shutdown():
     # log the action
     print('Server shutting down...')
     # run subprocess to shutdown the flask server
-    subprocess.run(['pkill', 'python'])
+    subprocess.run(['sudo', 'pkill', 'python'])
     return 'Server shutting down...'
 
 if __name__ == '__main__':
