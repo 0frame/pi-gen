@@ -54,6 +54,10 @@
             outline-color: rgb(60, 32, 226);
         }
 
+        #key {
+            -webkit-text-security: disc;
+        }
+
         button {
             background-color: rgb(60, 32, 226);
             color: #ffffff;
@@ -106,8 +110,8 @@
             <form id="wifi-form" style="display: none;">
                 <label for="ssid">Wifi Network (SSID):</label>
                 <input type="text" id="ssid" name="ssid" placeholder="Enter SSID" required autofocus>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                <label for="key">Password:</label>
+                <input type="text" id="key" name="key" placeholder="Enter Password" required>
                 <button type="submit">Configure Wifi</button>
             </form>
             <!-- Success sequence -->
@@ -189,7 +193,7 @@
         document.getElementById('wifi-form').addEventListener('submit', async function (e) {
             e.preventDefault();
             const ssid = document.getElementById('ssid').value;
-            const password = document.getElementById('password').value;
+            const password = document.getElementById('key').value;
             const statusMessage = document.getElementById('status-message');
 
             showLoading('Configuring Wifi...');
